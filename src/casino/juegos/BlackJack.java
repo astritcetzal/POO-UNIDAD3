@@ -1,7 +1,5 @@
 package juegos;
 
-import interfaces.Jugable;
-import juegos.JuegoMesa;
 import persona.Jugador;
 
 import java.util.ArrayList;
@@ -9,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-public class BlackJack extends JuegoMesa implements Jugable {
+public class BlackJack extends JuegoMesa {
     private int puntosJugador;
     private int puntosCasa;
     private List<Integer> mazo;
@@ -68,6 +66,9 @@ public class BlackJack extends JuegoMesa implements Jugable {
             terminar();
         } catch (Exception e) {
             System.out.println("Error durante el flujo del juego: " + e.getMessage());
+
+        } finally {
+            sc.close();
         }
     }
 
