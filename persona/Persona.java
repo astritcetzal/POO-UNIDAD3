@@ -8,6 +8,7 @@ public abstract class Persona {
         this.apellido = apellido;
         this.cedula = cedula;
         this.edad = edad;
+        
     }
 
     public String getNombre() {
