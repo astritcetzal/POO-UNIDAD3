@@ -7,10 +7,12 @@ public class Empleado extends Persona {
 
     public Empleado(String nombre, String apellido, String cedula, int edad, String cargo, double salario) {
         super(nombre, apellido, cedula, edad);
-        this.cargo = cargo;
+        if (cargo==null || cargo.isEmpty()){ throw new IllegalArgumentException("El juego no puede no tener nombre"); }
+        if (salario<0){ throw new IllegalArgumentException("El salario no puede ser menor a 0"); }
+        this.cargo = cargo; 
         this.salario = salario;
     }
-
+    
     public String getCargo() {
         return cargo;
     }
@@ -27,16 +29,21 @@ public class Empleado extends Persona {
         this.salario = salario;
     }
 
-    /*public String getMesaAsignada(JuegoMesa mesa) {
+    public JuegoMesa getMesaAsignada() {
         return mesaAsignada;
-    }*/
-
+    }
+    
     public void setMesaAsignada(JuegoMesa mesa) {
+        if (mesaAsignada==null){ throw new IllegalArgumentException("Debe asignar mesa"); }
         this.mesaAsignada = mesa;
     }
 
     public void supervisarMesa() {
-
+        if (this.mesaAsignada != null){
+            System.out.println("El empleado " + this.getNombre()+ " (" +this.cargo + ") está supervisando la mesa: " + this.mesaAsignada.getNombre() );
+        } else{
+            System.out.println("El empleado " + this.getNombre() + " actualmente no tienen ninguna mesa asignada");
+        }
     }
 
     @Override
