@@ -1,6 +1,8 @@
 package juegos;
 import interfaces.Jugable;
 import juegos.JuegoMesa;
+import persona.Jugador;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
