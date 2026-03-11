@@ -1,12 +1,9 @@
 package juegos;
 
-import interfaces.Jugable;
-import Jugador;
-
 public abstract class JuegoMesa implements Jugable {
 
     protected String nombre;
-    protected Juga jugadorActual;
+    protected Jugador jugadorActual;
     protected double apuestaMinima, apuestaMaxima;
     protected boolean activo;
 

@@ -1,3 +1,5 @@
+
+
 public class JugadorVIP extends Jugador {
 
     private String nivelVIP;

@@ -1,4 +1,5 @@
 import java.lang.annotation.Documented;
+import juegos.JuegoMesa;
 import java.util.ArrayList;
 import java.util.List;
 public class Casino {

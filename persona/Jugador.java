@@ -1,4 +1,4 @@
-class Jugador extends Persona {
+public class Jugador extends Persona {
     
     private double saldo;
     private int puntosLealtad;

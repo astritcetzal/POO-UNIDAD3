@@ -1,3 +1,6 @@
+
+
+import juegos.JuegoMesa;
 public class Empleado extends Persona {
     private String cargo;
     private double salario;
@@ -25,9 +28,9 @@ public class Empleado extends Persona {
         this.salario = salario;
     }
 
-    public String getMesaAsignada(JuegoMesa mesa) {
+    /*public String getMesaAsignada(JuegoMesa mesa) {
         return mesaAsignada;
-    }
+    }*/
 
     public void setMesaAsignada(JuegoMesa mesa) {
         this.mesaAsignada = mesa;
