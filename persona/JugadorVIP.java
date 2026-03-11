@@ -31,6 +31,7 @@ public class JugadorVIP extends Jugador {
 
     public double getPorcentajeBonus() {
         return porcentajeBonus;
+        
     }
 
     public void setPorcentajeBonus(double porcentaje) {
