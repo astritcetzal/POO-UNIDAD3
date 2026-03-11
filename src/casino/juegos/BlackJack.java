@@ -12,7 +12,7 @@ public class BlackJack extends JuegoMesa {
     private int puntosCasa;
     private List<Integer> mazo;
 
-    public BlackJack(String nombre, Jugador jugadorActual, int apuestaMinima, int apuestaMaxima, boolean activo) {
+    public BlackJack(String nombre, Jugador jugadorActual, double apuestaMinima, double apuestaMaxima, boolean activo) {
         super(nombre, jugadorActual, apuestaMinima, apuestaMaxima, activo);
         this.mazo = new ArrayList<>();
         prepararMazo();

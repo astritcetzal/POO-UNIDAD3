@@ -15,7 +15,7 @@ public class Ruleta extends JuegoMesa {
     private static final double PAGO_NUMERO = 35.0; // paga 35 a 1
     private static final double PAGO_COLOR = 2.0; // devuelve el doble
 
-    public Ruleta(String nombre, Jugador jugadorActual, int apuestaMinima, int apuestaMaxima, boolean activo) {
+    public Ruleta(String nombre, Jugador jugadorActual, double apuestaMinima, double apuestaMaxima, boolean activo) {
         super(nombre, jugadorActual, apuestaMinima, apuestaMaxima, activo); // apuesta mínima $5, máxima $1000
         this.numeroGanador = 0;
         this.colorGanador = "";
