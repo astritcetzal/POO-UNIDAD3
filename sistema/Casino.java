@@ -9,6 +9,7 @@ public class Casino {
     private double cajaTotal;
 
     public Casino(String nombre){
+        if (nombre == null || nombre.isEmpty())throw new IllegalArgumentException("El nombre no puede estar vacio");
         this.nombre = nombre;
         this.jugadores= new ArrayList<>();
         this.empleados = new ArrayList<>();
@@ -39,11 +40,13 @@ public class Casino {
     
     //composicion 
     public void agregarRuleta (String nombreRuleta){
+        if (nombreRuleta == null || nombreRuleta.isEmpty())throw   new IllegalArgumentException("El nombre de la Ruleta no puede estar vacio");
         Ruleta nuevaRuleta = new Ruleta(nombreRuleta);
         this.juegos.add(nuevaRuleta);
     }
 
     public void agregarBlackJack  (String nombreBlackJack){
+        if (nombreBlackJack == null || nombreBlackJack.isEmpty())throw   new IllegalArgumentException("El nombre del BlackJack no puede estar vacio");
         BlackJack nuevoBlackJack = new BlackJack (nombreBlackJack);
         this.juegos.add(nuevoBlackJack);
     }
