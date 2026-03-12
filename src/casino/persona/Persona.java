@@ -51,8 +51,6 @@ public abstract class Persona {
         return "Persona: nombre = " + nombre + ", apellido: " + apellido + ", cedula: " + cedula + ", edad: " + edad;
     }
 
-    public abstract String getRol() {
-        return "";
-    }
+    public abstract String getRol();
 
 }
