@@ -1,4 +1,6 @@
 package persona;
+
+
 public class Jugador extends Persona implements Apostable {
     
     private double saldo;
