@@ -62,7 +62,7 @@ public class Empleado extends Persona {
 
     @Override
     public String getRol() {
-        return "Rol: Empleado";
+        return "Empleado";
     }
 
 }
