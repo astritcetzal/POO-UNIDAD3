@@ -16,7 +16,16 @@ public class Ruleta extends JuegoMesa {
     private static final double PAGO_COLOR = 2.0; // devuelve el doble
 
     public Ruleta(String nombre, Jugador jugadorActual, int apuestaMinima, int apuestaMaxima, boolean activo) {
-        super(nombre, jugadorActual, apuestaMinima, apuestaMaxima, activo); // apuesta mínima $5, máxima $1000
+        super(nombre, jugadorActual, apuestaMinima, apuestaMaxima, activo);
+
+        if (numeroGanador < 0) {
+            throw new IllegalArgumentException("El número Ganador no puede ser menor a Cero");
+        }
+
+        if (!colorElegido.equalsIgnoreCase("Rojo") || !colorElegido.equalsIgnoreCase("Negro")
+                || !colorElegido.equalsIgnoreCase("Verde")) {
+            throw new IllegalArgumentException("El color elegido debe ser Rojo, Negro o Verde");
+        }
         this.numeroGanador = 0;
         this.colorGanador = "";
         this.numeroElegido = -1;
@@ -34,6 +43,14 @@ public class Ruleta extends JuegoMesa {
     }
 
     public void setApuesta(int numeroElegido, String colorElegido, double monto) {
+        if (numeroElegido < 0 || numeroElegido >= 36) {
+            throw new IllegalArgumentException("El numero Elegido debe estar entre 0 y 36");
+        }
+        if (!colorElegido.equalsIgnoreCase("Rojo") && !colorElegido.equalsIgnoreCase("Negro")
+                && !colorElegido.equalsIgnoreCase("Verde")) {
+            throw new IllegalArgumentException("El color elegido debe ser Rojo, Negro o Verde");
+        }
+
         this.numeroElegido = numeroElegido;
         this.colorElegido = colorElegido;
         this.montoApuesta = monto;
@@ -42,8 +59,7 @@ public class Ruleta extends JuegoMesa {
     @Override
     public void iniciar(Jugador j) {
         if (j == null) {
-            System.out.println("No se puede iniciar la Ruleta sin un jugador.");
-            return;
+            throw new IllegalArgumentException("No se puede iniciar la Ruleta sin un jugador");
         }
         this.jugadorActual = j;
         this.activo = true;
@@ -58,20 +74,14 @@ public class Ruleta extends JuegoMesa {
     @Override
     public void jugar() {
         if (!activo || jugadorActual == null) {
-            System.out.println("La Ruleta no está activa. Llama a iniciar() primero.");
-            return;
-        }
-
-        if (montoApuesta <= 0) {
-            System.out.println("Debes definir tu apuesta con setApuesta() antes de jugar.");
-            return;
+            throw new IllegalArgumentException("La Ruleta debe estar activa o no tienes un jugador asignado");
         }
 
         if (!validarApuesta(montoApuesta)) {
-            System.out
-                    .println("Apuesta inválida. El monto debe estar entre $" + apuestaMinima + " y $" + apuestaMaxima);
-            return;
+            throw new IllegalArgumentException(
+                    "Apuesta inválida. El monto debe estar entre " + apuestaMinima + " y " + apuestaMaxima);
         }
+
         // Empieza el flujo despues de validar
         jugadorActual.apostar(montoApuesta);
 
