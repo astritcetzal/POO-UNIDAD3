@@ -1,5 +1,5 @@
 package persona;
-public class Jugador extends Persona {
+public class Jugador extends Persona implements Apostable {
     
     private double saldo;
     private int puntosLealtad;
