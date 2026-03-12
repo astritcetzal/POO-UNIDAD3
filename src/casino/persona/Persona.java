@@ -1,4 +1,6 @@
 package persona;
+
+
 public abstract class Persona {
 
     private String nombre, apellido, cedula;
@@ -49,7 +51,7 @@ public abstract class Persona {
         return "Persona: nombre = " + nombre + ", apellido: " + apellido + ", cedula: " + cedula + ", edad: " + edad;
     }
 
-    public String getRol() {
+    public abstract String getRol() {
         return "";
     }
 
