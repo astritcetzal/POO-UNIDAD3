@@ -36,6 +36,7 @@ public class Jugador extends Persona implements Apostable {
         this.idJugador = idJugador;
     }
 
+    @Override
     public void apostar(double monto){
         if(monto > 0 && monto <= saldo){
             saldo -= monto;
