@@ -45,7 +45,7 @@ public class JugadorVIP extends Jugador {
         double bonus = getSaldo() * (porcentajeBonus/100);
         setSaldo(getSaldo() + bonus);
         System.out.println("El bonus de: $ " + bonus + 
-                        "fue aplicado correctamente. Su nuevo saldo es de: $ " + getSaldo());
+                        " fue aplicado correctamente. Su nuevo saldo es de: $ " + getSaldo());
     }
 
     @Override
