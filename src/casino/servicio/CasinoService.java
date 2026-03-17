@@ -6,8 +6,8 @@ import juegos.Ruleta;
 import persona.Empleado;
 import persona.Jugador;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
 import Exceptions.CedulaEmpleadoDuplicadoException;
 import Exceptions.IDJugadorDuplicadoException;
 import Sistema.Casino;
@@ -34,7 +34,7 @@ public class CasinoService {
         for(Jugador jg: jugadores){
             if (jg.getIdJugador().equals(j.getIdJugador())){
                 throw new IDJugadorDuplicadoException (j.getIdJugador());
-            }
+             }
         }
         jugadores.add(j);
         casino.registrarJugador(j);
@@ -67,7 +67,15 @@ public class CasinoService {
     }
 
     public void eliminarJugador(String id) {
-        jugadores.remove(buscarJugador(id));
+        Iterator<Jugador> iterator = jugadores.iterator();
+        while (iterator.hasNext()) {
+            Jugador j = iterator.next();
+            if (j.getIdJugador().equals(id)) {
+                iterator.remove();
+                return;
+            }
+        }
+        throw new IllegalArgumentException("No se encontró un jugador con ID: " + id);
     }
 
     public void agregarEmpleado(Empleado empleado) throws CedulaEmpleadoDuplicadoException {
@@ -103,7 +111,15 @@ public class CasinoService {
     }
 
     public void eliminarEmpleado(String cedula) {
-        empleados.remove(buscarEmpleado(cedula));
+        Iterator<Empleado> iterator = empleados.iterator();
+        while (iterator.hasNext()) {
+            Empleado e = iterator.next();
+            if (e.getCedula().equals(cedula)) {
+                iterator.remove();
+                return;
+            }
+        }
+        throw new IllegalArgumentException("No se encontró el empleado con la cédula: " + cedula);
     }
 
     public Ruleta agregarRuleta(String nombre, String idJugador, double min, double max) {
@@ -143,6 +159,14 @@ public class CasinoService {
     }
 
     public void eliminarJuego(String nombre) {
-        juegos.remove(buscarJuego(nombre));
+        Iterator<JuegoMesa> iterator = juegos.iterator();
+        while (iterator.hasNext()) {
+            JuegoMesa j = iterator.next();
+            if (j.getNombre().equalsIgnoreCase(nombre)) {
+                iterator.remove();
+                return;
+            }
+        }
+        throw new IllegalArgumentException("No se encontró el juego: " + nombre);
     }
 }
