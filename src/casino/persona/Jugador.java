@@ -12,7 +12,7 @@ public class Jugador extends Persona implements Apostable {
         if(saldo < 0){
             throw new IllegalArgumentException("El saldo debe ser mayor que 0. No hay saldos negativos");
         }
-        if(idJugador == null){
+        if(idJugador == null || idJugador.isEmpty()){
             throw new IllegalArgumentException("El id del jugador no puede ser nulo");
         }
         super(nombre, apellido, cedula, edad);
