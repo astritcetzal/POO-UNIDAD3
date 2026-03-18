@@ -10,7 +10,7 @@ public class JugadorVIP extends Jugador {
     public JugadorVIP(String nombre, String apellido, String cedula, int edad, 
                       double saldo, String idJugador, String nivelVIP, 
                       double limiteApuestaEspecial, double porcentajeBonus) {
-        
+        super(nombre, apellido, cedula, edad, saldo, idJugador);
         if(nivelVIP == null || nivelVIP.isEmpty()){
             throw new IllegalArgumentException("El nivel VIP no puede ser nulo.");
         }
@@ -20,7 +20,7 @@ public class JugadorVIP extends Jugador {
         if(porcentajeBonus > 100 || porcentajeBonus < 0){
             throw new IllegalArgumentException("El porcentaje de bonus debe estar entre 0-100");
         }
-        super(nombre, apellido, cedula, edad, saldo, idJugador);
+        
         this.nivelVIP = nivelVIP;
         this.limiteApuestaEspecial = limiteApuestaEspecial;
         this.porcentajeBonus = porcentajeBonus;
