@@ -9,13 +9,14 @@ public class Jugador extends Persona implements Apostable {
     private String idJugador;
 
     public Jugador(String nombre, String apellido, String cedula, int edad, double saldo, String idJugador){
+        super(nombre, apellido, cedula, edad);
         if(saldo < 0){
             throw new IllegalArgumentException("El saldo debe ser mayor que 0. No hay saldos negativos");
         }
         if(idJugador == null || idJugador.isEmpty()){
             throw new IllegalArgumentException("El id del jugador no puede ser nulo");
         }
-        super(nombre, apellido, cedula, edad);
+        
         this.saldo = saldo;
         this.puntosLealtad = 0;
         this.idJugador = idJugador;

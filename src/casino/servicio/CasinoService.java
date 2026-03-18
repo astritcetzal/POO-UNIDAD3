@@ -86,7 +86,7 @@ public class CasinoService {
                 throw new CedulaEmpleadoDuplicadoException(empleado.getCedula());
             }
         }
-        empleados.add(empleado); //quitarlo
+        empleados.add(empleado);
         casino.agregarEmpleado(empleado);
 
     }
