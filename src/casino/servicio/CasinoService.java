@@ -1,5 +1,4 @@
 package servicio;
-
 import juegos.BlackJack;
 import juegos.JuegoMesa;
 import juegos.Ruleta;
@@ -7,7 +6,6 @@ import persona.Empleado;
 import persona.Jugador;
 import java.util.ArrayList;
 import java.util.List;
-
 import Exceptions.CedulaEmpleadoDuplicadoException;
 import Exceptions.IDJugadorDuplicadoException;
 import Sistema.Casino;
@@ -66,6 +64,7 @@ public class CasinoService {
         return resultado;
     }
 
+    //iterator 
     public void eliminarJugador(String id) {
         jugadores.remove(buscarJugador(id));
     }
@@ -78,12 +77,12 @@ public class CasinoService {
                 throw new CedulaEmpleadoDuplicadoException(empleado.getCedula());
             }
         }
-        
-        empleados.add(empleado);
+        empleados.add(empleado); //quitarlo
         casino.agregarEmpleado(empleado);
 
     }
 
+    //revisar
     public Empleado buscarEmpleado(String cedula) {
         for (Empleado e : empleados)
             if (e.getCedula().equals(cedula)) {
@@ -102,6 +101,7 @@ public class CasinoService {
         return resultado;
     }
 
+    //iterator
     public void eliminarEmpleado(String cedula) {
         empleados.remove(buscarEmpleado(cedula));
     }
@@ -111,7 +111,7 @@ public class CasinoService {
             throw new IllegalArgumentException("La apuesta máxima debe ser mayor que la mínima");
         }
         Ruleta ruleta = casino.agregarRuleta(nombre, buscarJugador(idJugador), min, max, false);
-        juegos.add(ruleta);
+        juegos.add(ruleta);//quitarlo
         return ruleta;
     }
 
@@ -120,7 +120,7 @@ public class CasinoService {
             throw new IllegalArgumentException("La apuesta máxima debe ser mayor que la mínima");
         }
         BlackJack bj = casino.agregarBlackJack(nombre, buscarJugador(idJugador), min, max, false);
-        juegos.add(bj);
+        juegos.add(bj);  //quitarlo
         return bj;
     }
 
@@ -129,7 +129,8 @@ public class CasinoService {
             if (j.getNombre().equalsIgnoreCase(nombre)) {
                 return j;
             }
-        throw new IllegalArgumentException("No se encontró el juego: " + nombre);
+        return null;
+            //throw new IllegalArgumentException("No se encontró el juego: " + nombre);
     }
 
     public List<JuegoMesa> filtrarActivos() {
