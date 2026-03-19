@@ -18,9 +18,10 @@ public class Main {
         Persona pVIP = new JugadorVIP("Blair", "Waldorf", "CED-002", 22, 5000.0, "JUG-VIP1", "Oro", 2000.0, 15.0);
         Persona pEmpleado = new Empleado("Carlos", "Gomez", "EMP-001", 35, "Crupier", 1500.0);
         
-        System.out.println("Usuarios creados exitosamente en memoria.");
+        System.out.println("Personas creadas exitosamente en memoria.");
         System.out.println(p1.getNombre() + " es: " + p1.getRol());
         System.out.println(pVIP.getNombre() + " es: " + pVIP.getRol());
+        System.out.println(pEmpleado.getNombre() + " es: " + pEmpleado.getRol());
         
         try {
             servicio.agregarJugador((Jugador) p1);
