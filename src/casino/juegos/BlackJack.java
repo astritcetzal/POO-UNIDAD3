@@ -38,16 +38,28 @@ public class BlackJack extends JuegoMesa {
             throw new IllegalArgumentException("No se puede iniciar el juego sin un jugador válido.");
         }
 
-        if (jugador.getSaldo() < this.apuestaMinima) {
+        if (jugador.getSaldo() < getApuestaMinima()) {
             throw new IllegalStateException("El jugador no tiene saldo suficiente para la apuesta mínima de esta mesa.");
         }
 
-        this.jugadorActual = jugador;
+        getJugadorActual();
         this.puntosJugador = 0;
         this.puntosCasa = 0;
         this.activo = true;
         prepararMazo();
         System.out.println("¡Mesa lista! Jugador: " + jugador.getNombre());
+    }
+
+public void setPuntosJugador(int puntosJugador) {
+        this.puntosJugador = puntosJugador;
+    }
+
+    public void setPuntosCasa(int puntosCasa) {
+        this.puntosCasa = puntosCasa;
+    }
+
+    public void setMazo(List<Integer> mazo) {
+        this.mazo = mazo;
     }
 
 @Override
@@ -57,11 +69,11 @@ public class BlackJack extends JuegoMesa {
             return;
         }
 
-        if (this.jugadorActual == null) {
+        if (getJugadorActual() == null) {
             System.out.println("Error: No hay un jugador asignado a la mesa.");
         }
 
-        double montoSimulado = this.apuestaMinima; 
+        double montoSimulado = getApuestaMinima(); 
         
         if (!validarApuesta(montoSimulado)) {
             throw new IllegalArgumentException("La apuesta no es válida para los límites de esta mesa.");
@@ -83,7 +95,7 @@ public class BlackJack extends JuegoMesa {
     }
     @Override
     public void terminar() {
-        this.activo = false;
+        isActivo();
         int resultado = calcularPuntos();
         if (resultado == 1) {
             System.out.println("--- ¡GANASTE! ---");
@@ -112,10 +124,6 @@ public class BlackJack extends JuegoMesa {
     }
     public int getPuntosCasa() {
         return puntosCasa; 
-    }
-
-    public String getNombre(){
-        return this.nombre; 
     }
 
     public List<Integer>getMazo(){
