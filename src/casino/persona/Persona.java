@@ -1,17 +1,28 @@
 package persona;
 
-
 public abstract class Persona {
 
     private String nombre, apellido, cedula;
     private int edad;
 
     public Persona(String nombre, String apellido, String cedula, int edad) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("Datos como Nombre no puede estar vacio o nulo");
+        }
+        if (apellido == null || apellido.trim().isEmpty()) {
+            throw new IllegalArgumentException("Datos como Apelido no puede estar vacio o nulo");
+        }
+        if (cedula == null || cedula.trim().isEmpty()) {
+            throw new IllegalArgumentException("Datos como Cédula no puede estar vacio o nulo");
+        }
+        if (edad < 18) {
+            throw new IllegalArgumentException("Debes ser mayor de edad para entrar a un Casino");
+        }
         this.nombre = nombre;
         this.apellido = apellido;
         this.cedula = cedula;
         this.edad = edad;
-        
+
     }
 
     public String getNombre() {
