@@ -3,16 +3,18 @@ package servicio;
 import juegos.BlackJack;
 import juegos.JuegoMesa;
 import juegos.Ruleta;
+import persistencia.JugadorRepository;
+import persistencia.Repositorio;
 import persona.Empleado;
 import persona.Jugador;
+import sistema.Casino;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import Exceptions.CedulaEmpleadoDuplicadoException;
-import Exceptions.IDJugadorDuplicadoException;
-import Persistencia.JugadorRepository;
-import Persistencia.Repositorio;
-import Sistema.Casino;
+
+import exceptions.CedulaEmpleadoDuplicadoException;
+import exceptions.IDJugadorDuplicadoException;
 
 public class CasinoService {
     private List<Jugador> jugadores = new ArrayList<>();

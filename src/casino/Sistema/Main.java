@@ -1,6 +1,6 @@
-package Sistema;
+package sistema;
 
-import Exceptions.IDJugadorDuplicadoException;
+import exceptions.IDJugadorDuplicadoException;
 import juegos.BlackJack;
 import juegos.Ruleta;
 import persona.Empleado;

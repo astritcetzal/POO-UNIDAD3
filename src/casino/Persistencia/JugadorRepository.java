@@ -1,4 +1,4 @@
-package Persistencia;
+package persistencia;
 
 import persona.Jugador;
 import java.io.BufferedReader;

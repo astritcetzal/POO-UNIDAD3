@@ -1,4 +1,5 @@
-package Sistema;
+package sistema;
+
 import juegos.BlackJack;
 import juegos.JuegoMesa;
 import juegos.Ruleta;
