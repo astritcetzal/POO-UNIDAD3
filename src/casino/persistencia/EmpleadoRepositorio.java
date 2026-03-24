@@ -7,30 +7,33 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import persona.Empleado;
 
 public class EmpleadoRepositorio implements Repositorio<Empleado> {
-    private static final String nombreArchivo= "empleado.csv";
+    private static final String NOMBREARCHIVO = "empleado.csv";
 
     @Override
     public void guardar(List<Empleado> empleados){
-        try(PrintWriter pw = new PrintWriter(new FileWriter(nombreArchivo))){
+        try(PrintWriter pw = new PrintWriter(new FileWriter(NOMBREARCHIVO))){
             pw.println(",,,,,");
             for (Empleado empl: empleados){
                 pw.println(empl.toCSV());
             }
+        }catch(IOException e){
+            System.out.println(e.getMessage());
         }
     }
 
+
+
     @Override
-    public List<Empleado> cargar() throws IOException{
+    public List<Empleado> cargar() {
         List<Empleado> empleados = new ArrayList<>();
-        File archivo = new File(nombreArchivo);
+        File archivo = new File(NOMBREARCHIVO);
         if (!archivo.exists()){
             return empleados;
         }
-        try(BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))){
+        try(BufferedReader br = new BufferedReader(new FileReader(NOMBREARCHIVO))){
             String linea;
             boolean primeraLinea = true;
             while ((linea= br.readLine()) != null){
@@ -46,6 +49,8 @@ public class EmpleadoRepositorio implements Repositorio<Empleado> {
                     }
                 }
             }
+        } catch(IOException e){
+            System.out.println(e.getMessage());
         }
         return empleados;
     }
