@@ -54,6 +54,28 @@ public class Empleado extends Persona {
             System.out.println("El empleado " + this.getNombre() + " actualmente no tienen ninguna mesa asignada");
         }
     }
+    public String toCSV(){
+        //(String nombre, String apellido, String cedula, int edad, String cargo, double salario) 
+        StringBuilder sb = new StringBuilder();
+        sb.append(getNombre()).append(",").append(getCedula()).append(",").append(getEdad()).append(",").append(getCargo()).append(",").append(getSalario());
+        return sb.toString();
+    }
+    public static Empleado fromCSV(String linea){
+        String[] partes = linea.split(",");
+        if (partes.length!=6){
+            throw new IllegalArgumentException("Linea invalida, se esperan al menos 2 campos: " + linea);
+        }
+   
+        try {
+        int edadParseada = Integer.parseInt(partes[3]);
+        double salarioedadParseada = Double.parseDouble(partes[3]);
+        Empleado empl = new Empleado(partes[0], partes[1], partes[2], edadParseada, partes[4], salarioedadParseada );
+        return empl;
+        } catch (NumberFormatException e){
+            System.out.println("Error al leer los datos de mascota: " + e.getMessage());
+            throw new IllegalArgumentException();
+        }
+    }
 
     @Override
     public String toString() {
