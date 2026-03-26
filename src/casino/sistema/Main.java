@@ -1,12 +1,15 @@
 package sistema;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import exceptions.ApuestaInvalidaRuletaException;
 import exceptions.IDJugadorDuplicadoException;
 import exceptions.JuegoInactivoRuletaException;
 import exceptions.SaldoInsuficienteException;
+import exceptions.ApuestaMinimaInvalidaException;
+import exceptions.ApuestaMaximaInvalidaException;
 import juegos.BlackJack;
 import juegos.Ruleta;
 import persona.Empleado;
@@ -79,9 +82,23 @@ public class Main {
         JugadorVIP vipReal = (JugadorVIP) pVIP;
         System.out.println("Saldo de " + vipReal.getNombre() + " antes del bonus: $" + vipReal.getSaldo());
         vipReal.aplicarBonus();
-
     }
+    //Pruebas de errores
+    System.out.println("===== Purebas de excepciones: =====");
+    System.out.println("Apuesta menor a 100");
+    try{
+        Ruleta ruletabad = new Ruleta("Ruleta azul", (Jugador) p1, 50.0, 500.0, true);
+    } catch (ApuestaMaximaInvalidaException e) {
+            System.out.println("EXCEPCIÓN ATRAPADA: " + e.getMessage());
+
+
+
+
     // csv
+
+    EmpleadoArchivo repoEmpleado = new EmpleadoArchivo("empleados.csv");
+        List<Empleado> listaEmpleados = new ArrayList<>();
+        listaEmpleados.add((Empleado) pEmpleado);
     try {
             repoEmpleado.guardar(listaEmpleados);
             System.out.println("ÉXITO: Empleados guardados correctamente en empleados.csv usando try-with-resources.");
