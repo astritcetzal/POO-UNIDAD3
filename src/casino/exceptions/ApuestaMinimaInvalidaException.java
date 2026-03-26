@@ -7,5 +7,5 @@ public class ApuestaMinimaInvalidaException extends Exception {
         this.apuestaMinima = apuestaMinima;
     }
 
-
+    public String getApuestaMinima() { return apuestaMinima;}
 }

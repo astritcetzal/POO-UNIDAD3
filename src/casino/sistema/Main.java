@@ -82,16 +82,25 @@ public class Main {
         JugadorVIP vipReal = (JugadorVIP) pVIP;
         System.out.println("Saldo de " + vipReal.getNombre() + " antes del bonus: $" + vipReal.getSaldo());
         vipReal.aplicarBonus();
-    }
+    
     //Pruebas de errores
     System.out.println("===== Purebas de excepciones: =====");
-    System.out.println("Apuesta menor a 100");
+    System.out.println("\nApuesta menor a 100");
     try{
         Ruleta ruletabad = new Ruleta("Ruleta azul", (Jugador) p1, 50.0, 500.0, true);
     } catch (ApuestaMaximaInvalidaException e) {
             System.out.println("EXCEPCIÓN ATRAPADA: " + e.getMessage());
 
+    }
 
+    System.out.println("\nApuesta mayor a 35000");
+        try {
+            Ruleta ruletaErrorMax = new Ruleta("Ruleta Rota 2", (Jugador)p1, 200.0, 50000.0, true);
+        } catch (ApuestaMaximaInvalidaException e) {
+            System.out.println("EXCEPCIÓN ATRAPADA: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Otro error: " + e.getMessage());
+        }
 
 
     // csv
