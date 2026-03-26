@@ -13,7 +13,7 @@ public abstract class JuegoMesa implements Jugable {
     private String nombre;
     private Jugador jugadorActual;
     private double apuestaMinima, apuestaMaxima;
-    protected boolean activo;
+    private boolean activo;
 
     // creo que si serian en agregarRuleta y agregarBlackjack las validaciones
     public JuegoMesa(String nombre, Jugador jugadorActual, double apuestaMinima, double apuestaMaxima, boolean activo) throws ApuestaMaximaInvalidaException, ApuestaMinimaInvalidaException {
