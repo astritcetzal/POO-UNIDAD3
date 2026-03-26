@@ -1,7 +1,11 @@
 package juegos;
+
+import exceptions.ApuestaInvalidaRuletaException;
+import exceptions.JuegoInactivoRuletaException;
 import exceptions.SaldoInsuficienteException;
 import interfaces.Jugable;
 import persona.Jugador;
+
 public abstract class JuegoMesa implements Jugable {
 
     private String nombre;
@@ -9,8 +13,8 @@ public abstract class JuegoMesa implements Jugable {
     private double apuestaMinima, apuestaMaxima;
     protected boolean activo;
 
-    //creo que si serian en agregarRuleta y agregarBlackjack las validaciones
-    public JuegoMesa(String nombre, Jugador jugadorActual, double apuestaMinima, double apuestaMaxima, boolean activo){
+    // creo que si serian en agregarRuleta y agregarBlackjack las validaciones
+    public JuegoMesa(String nombre, Jugador jugadorActual, double apuestaMinima, double apuestaMaxima, boolean activo) {
         if (nombre == null || nombre.isEmpty())
             throw new IllegalArgumentException("El nombre de la Ruleta no puede estar vacio");
         if (jugadorActual == null)
@@ -28,62 +32,83 @@ public abstract class JuegoMesa implements Jugable {
         this.apuestaMaxima = apuestaMaxima;
         this.activo = activo;
 
-
     }
-    //NOMBRE
-    public String getNombre(){ return nombre; }
 
-    public void setNombre(String nombre){
-        if (nombre==null || nombre.isEmpty()){ throw new IllegalArgumentException("El juego no puede no tener nombre"); }
+    // NOMBRE
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        if (nombre == null || nombre.isEmpty()) {
+            throw new IllegalArgumentException("El juego no puede no tener nombre");
+        }
         this.nombre = nombre;
     }
 
-    //APUESTAMINIMA
-    public double getApuestaMinima(){ return apuestaMinima; }
+    // APUESTAMINIMA
+    public double getApuestaMinima() {
+        return apuestaMinima;
+    }
 
-    public void setApuestaMinima(double apuestaMinima){
-        if (apuestaMinima < 0){ throw new IllegalArgumentException("Tiene q ser mayor a 0");}
+    public void setApuestaMinima(double apuestaMinima) {
+        if (apuestaMinima < 0) {
+            throw new IllegalArgumentException("Tiene q ser mayor a 0");
+        }
         this.apuestaMinima = apuestaMinima;
     }
 
-    //APUESTAMAXIMA
-    public double getApuestamaxima(){ return apuestaMaxima; }
+    // APUESTAMAXIMA
+    public double getApuestamaxima() {
+        return apuestaMaxima;
+    }
 
-    public void setApuestaMaxima(double apuestaMaxima){
-        if (apuestaMaxima <= this.apuestaMinima){ throw new IllegalArgumentException("No puede ser menor que la apuesta mínima"); }
+    public void setApuestaMaxima(double apuestaMaxima) {
+        if (apuestaMaxima <= this.apuestaMinima) {
+            throw new IllegalArgumentException("No puede ser menor que la apuesta mínima");
+        }
         this.apuestaMaxima = apuestaMaxima;
     }
 
-    //JUGADORACTUAL
-    public Jugador getJugadorActual(){ return jugadorActual; }
+    // JUGADORACTUAL
+    public Jugador getJugadorActual() {
+        return jugadorActual;
+    }
 
-    public void setJugadorActual(Jugador jugadorActual){ this.jugadorActual = jugadorActual; }
+    public void setJugadorActual(Jugador jugadorActual) {
+        this.jugadorActual = jugadorActual;
+    }
 
-    //ACTIVO
-    public boolean isActivo(){ return activo; }
+    // ACTIVO
+    public boolean isActivo() {
+        return activo;
+    }
 
-    public void setActivo(boolean activo){ this.activo = activo; }
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
 
-    //VALIDAR
-    public boolean validarApuesta(double monto){
+    // VALIDAR
+    public boolean validarApuesta(double monto) {
         return monto >= apuestaMinima && monto <= apuestaMaxima;
     }
 
-    //INTERFACE
+    // INTERFACE
     @Override
     public abstract void iniciar(Jugador j) throws SaldoInsuficienteException;
 
     @Override
-    public abstract void jugar();
+    public abstract void jugar() throws JuegoInactivoRuletaException, ApuestaInvalidaRuletaException;
 
     @Override
     public abstract void terminar();
-    
-    //@Override
-    //public String getNombre(){} //Este siento q está demás
- 
-    public String toString(){
-        return "Jugador: "+nombre+"\n Apuesta mínima: "+apuestaMinima+"  &  Apuesta máxima: "+apuestaMaxima+"\n Estado de juego: "+activo;
+
+    // @Override
+    // public String getNombre(){} //Este siento q está demás
+
+    public String toString() {
+        return "Jugador: " + nombre + "\n Apuesta mínima: " + apuestaMinima + "  &  Apuesta máxima: " + apuestaMaxima
+                + "\n Estado de juego: " + activo;
     }
 
 }

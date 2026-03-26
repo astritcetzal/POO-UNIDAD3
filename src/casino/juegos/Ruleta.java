@@ -1,5 +1,7 @@
 package juegos;
 
+import exceptions.ApuestaInvalidaRuletaException;
+import exceptions.JuegoInactivoRuletaException;
 import persona.Jugador;
 
 public class Ruleta extends JuegoMesa {
@@ -64,14 +66,13 @@ public class Ruleta extends JuegoMesa {
     }
 
     @Override
-    public void jugar() {
+    public void jugar() throws JuegoInactivoRuletaException, ApuestaInvalidaRuletaException {
         if (!isActivo() || getJugadorActual() == null) {
-            throw new IllegalArgumentException("La Ruleta debe estar activa o no tienes un jugador asignado");
+            throw new JuegoInactivoRuletaException(getNombre());
         }
 
         if (!validarApuesta(montoApuesta)) {
-            throw new IllegalArgumentException(
-                    "Apuesta inválida. El monto debe estar entre " + getApuestaMinima() + " y " + getApuestamaxima());
+            throw new ApuestaInvalidaRuletaException(getApuestaMinima(), getApuestamaxima());
         }
 
         // Empieza el flujo después de validar
