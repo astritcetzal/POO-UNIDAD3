@@ -20,7 +20,7 @@ public class EmpleadoService {
             throw new IllegalArgumentException("El empleado no puede ser nulo");
         for (Empleado e : empleados) {
             if (e.getCedula().equals(empleado.getCedula())) {
-                throw new CedulaEmpleadoDuplicadoException(empleado.getCedula());
+                throw new CedulaEmpleadoDuplicadoException( "El empleado con la cédula " + empleado.getCedula() + " ya existe");
             }
         }
         empleados.add(empleado);
