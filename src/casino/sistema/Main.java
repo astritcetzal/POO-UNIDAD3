@@ -47,7 +47,8 @@ public class Main {
             System.out.println("El id esta duplicado: " + e.getMessage());
         } catch (IllegalArgumentException e) {
             System.out.println("Error de validación: " + e.getMessage());
-        }
+        } 
+
 
         try {
             // Creando juegos a través del servicio (Apuesta mínima de 150 y 200 para pasar
@@ -71,7 +72,7 @@ public class Main {
             mesaBJ.iniciar((Jugador) pVIP);
             mesaBJ.jugar();
 
-        } catch (IllegalArgumentException | IllegalStateException | SaldoInsuficienteException e) {
+        } catch (IllegalArgumentException | IllegalStateException | SaldoInsuficienteException | ApuestaInvalidaRuletaException e) {
             System.out.println("Error en la configuración o ejecución de las mesas: " + e.getMessage());
         }
 
