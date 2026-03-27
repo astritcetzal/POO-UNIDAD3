@@ -15,7 +15,6 @@ public abstract class JuegoMesa implements Jugable {
     private double apuestaMinima, apuestaMaxima;
     private boolean activo;
 
-    // creo que si serian en agregarRuleta y agregarBlackjack las validaciones
     public JuegoMesa(String nombre, Jugador jugadorActual, double apuestaMinima, double apuestaMaxima, boolean activo) throws ApuestaMaximaInvalidaException, ApuestaMinimaInvalidaException {
         if (nombre == null || nombre.isEmpty())
             throw new IllegalArgumentException("El nombre de la Ruleta no puede estar vacio");
