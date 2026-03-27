@@ -22,9 +22,9 @@ public abstract class JuegoMesa implements Jugable {
         if (jugadorActual == null)
             throw new IllegalArgumentException("Agregar a un jugador");
         if (apuestaMinima < 100.00)
-            throw new ApuestaMinimaInvalidaException("Apostar minimo 100 pesos");
+            throw new ApuestaMinimaInvalidaException(String.valueOf(apuestaMinima));
         if (apuestaMaxima > 35000.00)
-            throw new ApuestaMaximaInvalidaException("No apostar más de 35000");
+            throw new ApuestaMaximaInvalidaException(apuestaMaxima);
         if (apuestaMinima >= apuestaMaxima)
             throw new IllegalArgumentException("La apuesta mínima no puede ser mayor o igual a la máxima");
 

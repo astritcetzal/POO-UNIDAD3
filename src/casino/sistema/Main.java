@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exceptions.ApuestaInvalidaRuletaException;
-import exceptions.IDJugadorDuplicadoException;
 import exceptions.JuegoInactivoRuletaException;
 import exceptions.SaldoInsuficienteException;
 import exceptions.ApuestaMinimaInvalidaException;
@@ -20,9 +19,10 @@ import servicio.EmpleadoService;
 import persistencia.EmpleadoArchivo;
 
 public class Main {
-    public static void main(String[] args) throws JuegoInactivoRuletaException, ApuestaInvalidaRuletaException {
+    public static void main(String[] args) throws JuegoInactivoRuletaException, ApuestaInvalidaRuletaException, IOException {
         Casino casino = new Casino("La Cima");
-        EmpleadoService servicio = new EmpleadoService(EmpleadoArchivo);
+        EmpleadoArchivo repoEmpleado = new EmpleadoArchivo("empleados.csv");
+        EmpleadoService servicio = new EmpleadoService(repoEmpleado);
         Persona p1 = new Jugador("Gem", "Martin", "CED-001", 18, 300.0, "JUG-001");
         Persona pVIP = new JugadorVIP("Blair", "Waldorf", "CED-002", 22, 5000.0, "JUG-VIP1", "Oro", 2000.0, 15.0);
         Persona pEmpleado = new Empleado("Carlos", "Gomez", "EMP-001", 35, "Crupier", 1500.0);
@@ -32,32 +32,18 @@ public class Main {
         System.out.println(pVIP.getNombre() + " es: " + pVIP.getRol());
         System.out.println(pEmpleado.getNombre() + " es: " + pEmpleado.getRol());
 
-        try {
-            servicio.agregarJugador((Jugador) p1);
-            System.out.println("ÉXITO: Jugador " + p1.getNombre() + " agregado al servicio.");
+        casino.registrarJugador((Jugador) p1);
+        System.out.println("ÉXITO: Jugador " + p1.getNombre() + " agregado al casino.");
 
-            servicio.agregarJugador((Jugador) pVIP);
-            System.out.println("ÉXITO: Jugador " + pVIP.getNombre() + " agregado al servicio.");
-
-            System.out.println("\nIntentando agregar un jugador con ID duplicado (JUG-001)...");
-            Persona p2 = new Jugador("Pucca", "Gaston", "CED-001", 20, 100.000, "JUG-001");
-
-            servicio.agregarJugador((Jugador)p2);
-
-            System.out.println("El sistema dejó pasar un ID duplicado.");
-
-        } catch (IDJugadorDuplicadoException e) {
-            System.out.println("El id esta duplicado: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error de validación: " + e.getMessage());
-        } 
+        casino.registrarJugador((Jugador) pVIP);
+        System.out.println("ÉXITO: Jugador " + pVIP.getNombre() + " agregado al casino.");
 
 
         try {
             // Creando juegos a través del servicio (Apuesta mínima de 150 y 200 para pasar
             // la validación de >100)
-            Ruleta mesaRuleta = servicio.agregarRuleta("Ruleta Europea", "JUG-001", 150.0, 2000.0);
-            BlackJack mesaBJ = servicio.agregarBlackJack("BlackJack Clásico", "JUG-VIP1", 200.0, 5000.0);
+            Ruleta mesaRuleta = casino.agregarRuleta("Ruleta Europea", (Jugador) p1, 150.0, 2000.0, true);
+            BlackJack mesaBJ = casino.agregarBlackJack("BlackJack Clásico", (Jugador) pVIP, 200.0, 5000.0, true);
 
             // --- JUGANDO RULETA ---
             System.out.println("\n>>> SIMULANDO PARTIDA DE RULETA <<<");
@@ -75,7 +61,7 @@ public class Main {
             mesaBJ.iniciar((Jugador) pVIP);
             mesaBJ.jugar();
 
-        } catch (IllegalArgumentException | IllegalStateException | SaldoInsuficienteException | ApuestaInvalidaRuletaException e) {
+        } catch (IllegalArgumentException | IllegalStateException | SaldoInsuficienteException | ApuestaInvalidaRuletaException | ApuestaMaximaInvalidaException | ApuestaMinimaInvalidaException e) {
             System.out.println("Error en la configuración o ejecución de las mesas: " + e.getMessage());
         }
 
@@ -88,7 +74,7 @@ public class Main {
     System.out.println("\nApuesta menor a 100");
     try{
         Ruleta ruletabad = new Ruleta("Ruleta azul", (Jugador) p1, 50.0, 500.0, true);
-    } catch (ApuestaMaximaInvalidaException e) {
+    } catch (ApuestaMaximaInvalidaException | ApuestaMinimaInvalidaException e) {
             System.out.println("EXCEPCIÓN ATRAPADA: " + e.getMessage());
 
     }
@@ -96,14 +82,13 @@ public class Main {
     System.out.println("\nApuesta mayor a 35000");
         try {
             Ruleta ruletaErrorMax = new Ruleta("Ruleta Rota 2", (Jugador)p1, 200.0, 50000.0, true);
-        } catch (ApuestaMaximaInvalidaException e) {
+        } catch (ApuestaMaximaInvalidaException | ApuestaMinimaInvalidaException e) {
             System.out.println("EXCEPCIÓN ATRAPADA: " + e.getMessage());
         }
 
 
     // csv
 
-    EmpleadoArchivo repoEmpleado = new EmpleadoArchivo("empleados.csv");
         List<Empleado> listaEmpleados = new ArrayList<>();
         listaEmpleados.add((Empleado) pEmpleado);
     try {

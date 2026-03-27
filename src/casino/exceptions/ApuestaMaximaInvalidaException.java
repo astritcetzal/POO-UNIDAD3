@@ -5,7 +5,7 @@ public class ApuestaMaximaInvalidaException extends Exception {
 
 
     public ApuestaMaximaInvalidaException(double apuestaMaxima) {
-        super("La apuesta mínima no puede ser menor que 100.00. Tú apuesta:"+apuestaMaxima);
+        super("La apuesta máxima no puede ser mayor que 35,000. Tú apuesta es de :" + apuestaMaxima);
         this.apuestaMaxima = apuestaMaxima;
     }
 

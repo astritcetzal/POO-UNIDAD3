@@ -4,6 +4,8 @@ import persona.Empleado;
 import java.io.IOException;
 import repositorio.PersonaRepository;
 import exceptions.CedulaEmpleadoDuplicadoException;
+import juegos.BlackJack;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -54,6 +56,10 @@ public class EmpleadoService {
             }
         }
         repositorio.guardar(empleados);
+    }
+    public BlackJack agregarBlackJack(String string, String string2, double d, double e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'agregarBlackJack'");
     }
 
 
