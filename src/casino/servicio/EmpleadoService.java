@@ -5,7 +5,6 @@ import persona.Empleado;
 import java.io.IOException;
 import repositorio.PersonaRepository;
 import exceptions.CedulaEmpleadoDuplicadoException;
-import juegos.BlackJack;
 
 import java.util.ArrayList;
 import java.util.Iterator;
