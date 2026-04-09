@@ -15,15 +15,20 @@ import persona.Empleado;
 import persona.Jugador;
 import persona.JugadorVIP;
 import persona.Persona;
+import repositorio.JugadorRepository;
 import repositorio.PersonaRepository;
 import servicio.EmpleadoService;
+import servicio.JugadorService;
 import persistencia.EmpleadoArchivo;
+import persistencia.JugadorArchivo;
 
 public class Main { 
     public static void main(String[] args) throws IOException {
         Casino casino = new Casino("La Cima");
         PersonaRepository servicio = new EmpleadoArchivo("empleadoarchivo.csv");
         EmpleadoService empleado = new EmpleadoService(servicio);
+        JugadorRepository repoJugador = new JugadorArchivo("jugadorers.csv");
+        JugadorService  jugadorService = new JugadorService(repoJugador);
         Jugador p1 = new Jugador("Gem", "Martin", "CED-001", 18, 300.0, "JUG-001");
         JugadorVIP pVIP = new JugadorVIP("Blair", "Waldorf", "CED-002", 22, 5000.0, "JUG-VIP1", "Oro", 2000.0, 15.0);
         Empleado pEmpleado = new Empleado("Carlos", "Gomez", "EMP-001", 35, "Crupier", 1500.0);
