@@ -46,6 +46,8 @@ public class Main {
         casino.agregarEmpleado((Empleado) pEmpleado);
         System.out.println("ÉXITO: Empleado " + pEmpleado.getNombre() + " agregado al casino.");
 
+        System.out.println("\n--------------------------------------------------");
+
         //----------------------------------------------------------------------------------------------------CREACIÓN DE JUEGOS
         try {
             // Creando juegos a través del servicio (Apuesta mínima de 150 y 200 para pasar
@@ -58,8 +60,12 @@ public class Main {
             mesaRuleta.iniciar((Jugador) p1);
 
             double montoApostar = 200.0;
-            System.out.println(p1.getNombre() + " apuesta $" + montoApostar + " al Rojo, número 15.");
+            System.out.println(p1.getNombre() + " apuesta $" + montoApostar + " al Rojo, número 15.\n");
             mesaRuleta.setApuesta(15, "Rojo", montoApostar);
+
+            Empleado empleadoReal = (Empleado) pEmpleado;
+            empleadoReal.setMesaAsignada(mesaRuleta); 
+            empleadoReal.supervisarMesa();
 
             mesaRuleta.jugar();
             mesaRuleta.terminar();
