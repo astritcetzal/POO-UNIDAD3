@@ -8,6 +8,8 @@ import exceptions.ApuestaInvalidaRuletaException;
 import exceptions.JuegoInactivoRuletaException;
 import exceptions.SaldoInsuficienteException;
 import exceptions.ApuestaMinimaInvalidaException;
+import exceptions.CedulaEmpleadoDuplicadoException;
+import exceptions.IDJugadorDuplicadoException;
 import exceptions.JuegoInactivoException;
 import exceptions.ApuestaMaximaInvalidaException;
 import juegos.BlackJack;
@@ -24,7 +26,7 @@ import persistencia.EmpleadoArchivo;
 import persistencia.JugadorArchivo;
 
 public class Main { 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, JuegoInactivoException {
         Casino casino = new Casino("La Cima");
         PersonaRepository servicio = new EmpleadoArchivo("empleadoarchivo.csv");
         EmpleadoService empleado = new EmpleadoService(servicio);
@@ -81,7 +83,7 @@ public class Main {
             mesaBJ.jugar();
 
         } catch (IllegalArgumentException | IllegalStateException | SaldoInsuficienteException
-                | ApuestaInvalidaRuletaException | ApuestaMaximaInvalidaException | ApuestaMinimaInvalidaException | JuegoInactivoRuletaException | JuegoInactivoException e) {
+                | ApuestaInvalidaRuletaException | ApuestaMaximaInvalidaException | ApuestaMinimaInvalidaException | JuegoInactivoRuletaException e) {
             System.out.println("Error en la configuración o ejecución de las mesas: " + e.getMessage());
         }
 
@@ -105,23 +107,40 @@ public class Main {
         } catch (ApuestaMaximaInvalidaException | ApuestaMinimaInvalidaException e) {
             System.out.println("EXCEPCIÓN ATRAPADA: " + e.getMessage());
         }
+        //----------------------------------------------------------------------------------------------------SERVICIO Y PERSISTENCIA 
+        System.out.println("\n===== Pruebas de servicio y persistencia: =====");
+        try{
+            empleado.agregarEmpleado(pEmpleado);
+            System.out.println("ÉXITO: Empleado " + pEmpleado.getNombre() + " agregado al servicio por EmpleadoService");
 
-        //----------------------------------------------------------------------------------------------------GUARDAR EN CSV
-        List<Empleado> listaEmpleados = new ArrayList<>();
-        listaEmpleados.add((Empleado) pEmpleado);
-        try {
-            servicio.guardar(listaEmpleados);
-            System.out.println("ÉXITO: Empleados guardados correctamente en empleados.csv usando try-with-resources.");
+            Empleado buscar = empleado.buscarEmpleado("EM-001");
+            if(buscar != null){ System.out.println("ÉXITO: Búqueda exitosa: " + buscar.getNombre() + ", " + buscar.getCargo());}
 
-            // Cargar desde archivo
-            List<Empleado> cargados = servicio.cargar();
-            System.out.println("Datos cargados desde el archivo:");
-            for (Empleado e : cargados) {
-                System.out.println(" -> " + e.getNombre() + " " + e.getApellido() + " - " + e.getCargo());
-            }
-        } catch (IOException e) {
-            System.out.println("Error fatal de persistencia: " + e.getMessage());
-        } 
+            jugadorService.agregarJugador(p1);
+            jugadorService.agregarJugador(pVIP);
+            System.out.println("\nÉXITO: Jugadores :" +p1.getNombre() + ", " + pVIP.getNombre() + " guardados en el servicio por JugadorService");
+
+            List<Jugador> vips = jugadorService.filtrarVIP();
+            System.out.println("Jugadores VIP que están registrados en el servicio: ");
+            for (Jugador v:vips){System.out.println(" ==>  " + v.getNombre() + ", " + v.getApellido());}
+
+            //----------------------------------------------------------------------------------------------------GUARDAR EN CSV
+
+            /*List<Empleado> listaEmpleados = new ArrayList<>();
+            listaEmpleados.add((Empleado) pEmpleado);
+            try {
+                servicio.guardar(listaEmpleados);
+                System.out.println("ÉXITO: Empleados guardados correctamente en empleados.csv usando try-with-resources.");
+
+                // Cargar desde archivo
+                List<Empleado> cargados = servicio.cargar();
+                System.out.println("Datos cargados desde el archivo:");
+                for (Empleado e : cargados) {
+                    System.out.println(" -> " + e.getNombre() + " " + e.getApellido() + " - " + e.getCargo());
+                } */
+            } catch (CedulaEmpleadoDuplicadoException | IDJugadorDuplicadoException | IOException e) {
+                System.out.println("Error fatal de persistencia: " + e.getMessage());
+            } 
     }
 
 }
