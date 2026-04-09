@@ -82,8 +82,8 @@ public class Jugador extends Persona implements Apostable {
     }
 
     public String toCSV() {
-        return getIdJugador() + "," + getNombre() + "," + getApellido() + "," +
-           getCedula() + "," + getEdad() + "," + getSaldo() + ",Jugador";
+        return getNombre() + "," + getApellido() + "," +
+           getCedula() + "," + getEdad() + "," + getSaldo() + "," + getIdJugador() + ",Jugador";
     }
 
     public static Jugador fromCSV(String linea) {
