@@ -50,25 +50,31 @@ public class Main {
                     case 1:
                         System.out.println("Nombre: "); String nomJ = sc.nextLine();
                         System.out.println("Apellido: "); String apeJ = sc.nextLine();
-                        System.out.println("ID jugador: "); String id = sc.nextLine();
+                        System.out.println("Cedula (ej. CED-001): "); String cedJ = sc.nextLine();
+                        System.out.println("ID jugador (ej. JUG-001): "); String id = sc.nextLine();
                         
-                        jugadorService.agregarJugador(nomJ, apeJ, "CEDULA", 30, id, 1000);
+                        jugadorService.agregarJugador(nomJ, apeJ, cedJ, 30, id, 1000);
                         System.out.println("El jugador se registró correctamente!");
                         break;
 
                     case 2:
                         System.out.println("Nombre: "); String nomE = sc.nextLine();
                         System.out.println("Apellido: "); String apeE = sc.nextLine();
-                        System.out.println("Cédula: "); String cedE = sc.nextLine();
+                        System.out.println("Cédula (ej. EMP-001): "); String cedE = sc.nextLine();
                         System.out.println("Cargo: "); String cargo = sc.nextLine();
                         
                         empleadoService.agregarEmpleado(nomE, apeE, cedE, 25, cargo);
                         System.out.println("El empleado se registró en el sistema");
-                        break;
+                        break; 
 
                     case 3:
+                        System.out.println("ID que desea buscar"); String jugbuscar = sc.nextLine();
+                        Jugador encontrado =  jugadorService.buscarJugador(jugbuscar);
+                        System.out.println("El jugador fue encotrado: " + encontrado.getNombre());
+                        break;
 
                     case 4:
+                    
 
                     case 5:
 
