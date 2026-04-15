@@ -36,8 +36,8 @@ public class Main {
             int opcion;
             do{
                 System.out.println("\n~~ SISTEMA CASINO: " + casino.getNombre().toUpperCase() + " ~~\n");
-                System.out.println("1.- Registrar Empleado");
-                System.out.println("2.- Registrar Jugador");
+                System.out.println("1.- Registrar Jugador");
+                System.out.println("2.- Registrar Empleado");
                 System.out.println("3.- Buscar jugador");
                 System.out.println("4.- Ver jugadores VIP"); // filtrado
                 System.out.println("5.- Eliminar empleado"); //Iterator
@@ -48,8 +48,23 @@ public class Main {
 
                 switch (opcion) {
                     case 1:
+                        System.out.println("Nombre: "); String nomJ = sc.nextLine();
+                        System.out.println("Apellido: "); String apeJ = sc.nextLine();
+                        System.out.println("ID jugador: "); String id = sc.nextLine();
+                        
+                        jugadorService.agregarJugador(nomJ, apeJ, "CEDULA", 30, id, 1000);
+                        System.out.println("El jugador se registró correctamente!");
+                        break;
 
                     case 2:
+                        System.out.println("Nombre: "); String nomE = sc.nextLine();
+                        System.out.println("Apellido: "); String apeE = sc.nextLine();
+                        System.out.println("Cédula: "); String cedE = sc.nextLine();
+                        System.out.println("Cargo: "); String cargo = sc.nextLine();
+                        
+                        empleadoService.agregarEmpleado(nomE, apeE, cedE, 25, cargo);
+                        System.out.println("El empleado se registró en el sistema");
+                        break;
 
                     case 3:
 
@@ -60,11 +75,14 @@ public class Main {
                     case 6:
 
                     default:
-
-                    
-                        
+    
                 }
 
+            } while (opcion != 6);
+        } catch (IOException e){
+            System.out.println("Error de archivo: " + e.getMessage());
+        } catch (Exception e){
+            System.out.println("Error del sistema: " + e.getMessage());
         }
     }
 
