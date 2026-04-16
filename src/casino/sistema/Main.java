@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
-import exceptions.ApuestaInvalidaRuletaException;
 import exceptions.JuegoInactivoRuletaException;
 import exceptions.SaldoInsuficienteException;
 import exceptions.ApuestaMinimaInvalidaException;
@@ -17,8 +16,6 @@ import juegos.Ruleta;
 import persona.Empleado;
 import persona.Jugador;
 import persona.JugadorVIP;
-import repositorio.JugadorRepository;
-import repositorio.PersonaRepository;
 import servicio.EmpleadoService;
 import servicio.JugadorService;
 import persistencia.EmpleadoArchivo;
@@ -43,8 +40,9 @@ public class Main {
                 System.out.println("5. Jugar a la ruleta");
                 System.out.println("6. Jugar a BlackJack");
                 System.out.println("7. Ver jugadores VIP"); // filtrado
-                System.out.println("8. Eliminar empleado"); //Iterator
-                System.out.println("9. Salir y guardar");
+                System.out.println("8. Eliminar jugador");
+                System.out.println("9. Eliminar empleado"); //Iterator
+                System.out.println("10. Salir y guardar");
                 System.out.print("\nSeleccione una opción: ");
                 opcion = sc.nextInt();
                 sc.nextLine();
@@ -160,7 +158,7 @@ public class Main {
                             mesaBJ.iniciar(jugBJ);
                             mesaBJ.jugar();
                             jugadorService.actualizarJugador();
-                        } catch (SaldoInsuficienteException | ApuestaMinimaInvalidaException | IOException e) { 
+                        } catch ( ApuestaMinimaInvalidaException | SaldoInsuficienteException | IOException e) { 
                             System.out.println("Algo está fallando en la partida: " + e.getMessage());
                         }
                         break;
@@ -171,13 +169,19 @@ public class Main {
                         vips.forEach(v -> System.out.println(v.getNombre()));
                         break;
 
-                    case 8: // Eliminar empleado
+                    case 8: //Eliminar jugador
+                        System.out.println("Ingresa el ID del jugador para eliminar: "); String idbyebye = sc.nextLine();
+                        jugadorService.eliminarJugador(idbyebye);
+                        System.out.println("El ha sido eliminado exitosamente!!!");
+                        break;
+
+                    case 9: // Eliminar empleado
                         System.out.println("Cédula de empleado para elmininar: "); String ceeliminar = sc.nextLine();
                         empleadoService.eliminarEmpleado(ceeliminar);
                         System.out.println("El empleado fue eliminado del sistema.");
                         break;
 
-                    case 9: // Salir y guardar
+                    case 10: // Salir y guardar
                         System.out.println("Cerrando el sistema ...");
                         break;
 
@@ -186,7 +190,7 @@ public class Main {
     
                 }
 
-            } while (opcion != 9);
+            } while (opcion != 10);
         } catch (IOException e){
             System.out.println("\"Error fatal de archivo (no se pudo abrir o crear el CSV): " + e.getMessage());
         }

@@ -16,6 +16,7 @@ public class Empleado extends Persona {
         if (salario < 0) {
             throw new IllegalArgumentException("El salario no puede ser menor a 0");
         }
+        this.cedula = cedula;
         this.cargo = cargo;
         this.salario = salario;
     }
@@ -68,16 +69,7 @@ public class Empleado extends Persona {
         this.salario = salario;
     }
 
-    public JuegoMesa getMesaAsignada() {
-        return mesaAsignada;
-    }
-
-    public void setMesaAsignada(JuegoMesa mesa) {
-        if (mesa == null) {
-            throw new IllegalArgumentException("Debe asignar mesa");
-        }
-        this.mesaAsignada = mesa;
-    }
+    
 
     public void supervisarMesa() {
         if (this.mesaAsignada != null) {
