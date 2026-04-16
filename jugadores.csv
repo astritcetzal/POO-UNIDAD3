@@ -1,6 +1,6 @@
-Nombre,Apellido,Cedula,Edad,Saldo,idJugador,NivelVIP,LimiteApuestaEspecial,PorcentajeBonus
-venus,semino,19,35.0,JUG-005
-venus,hola,30,9384.0,jdoe
-venus,venven,33,9138.0,bronce
-Carlos,Llanes,18,90.0,JUG-009
-Facundo,Albar,26,9500.0,JUG-VIP90
+Nombre,Apellido,Edad,Saldo,idJugador,NivelVIP,LimiteApuestaEspecial,PorcentajeBonus
+venus,semino,355.0,JUG-005
+venus,hola,9384.0,jdoe
+venus,venven,9138.0,bronce
+Carlos,Llanes,90.0,JUG-009
+Facundo,Albar,9500.0,JUG-VIP90

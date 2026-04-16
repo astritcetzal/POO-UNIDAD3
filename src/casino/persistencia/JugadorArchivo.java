@@ -22,7 +22,7 @@ public class JugadorArchivo implements JugadorRepository {
     @Override
     public void guardar(List<Jugador> jugadores) throws IOException {
         try (PrintWriter pw = new PrintWriter(new FileWriter(rutaArchivo))) {
-            pw.println("Nombre,Apellido,Cedula,Edad,Saldo,idJugador,NivelVIP,LimiteApuestaEspecial,PorcentajeBonus");
+            pw.println("Nombre,Apellido,Edad,Saldo,idJugador,NivelVIP,LimiteApuestaEspecial,PorcentajeBonus");
             for (Jugador j : jugadores) {
                 pw.println(j.toCSV());
             }
