@@ -37,7 +37,7 @@ public class JugadorService {
 
     public Jugador buscarJugador(String id) {
         for (Jugador j : jugadores)
-            if (j.getIdJugador().equals(id)) {
+            if (j.getIdJugador().equals(id.toUpperCase())) {
                 return j;
             }
         throw new IllegalArgumentException("No se encontró un jugador con ID: " + id);
