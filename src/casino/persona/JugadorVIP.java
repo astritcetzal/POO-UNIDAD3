@@ -100,21 +100,12 @@ public class JugadorVIP extends Jugador {
     }
 
     public static JugadorVIP fromCSV(String linea) {
-        try {
+        try{
             String[] p = linea.split(",");
-            if (p.length < 8) throw new IllegalArgumentException("Línea CSV inválida para JugadorVIP: " + linea);
-            return new JugadorVIP(
-                p[0],                               // nombre
-                p[1],                               // apellido
-                Integer.parseInt(p[2].trim()),      // edad
-                Double.parseDouble(p[3].trim()),    // saldo
-                p[4],                               // idJugador
-                p[5],                               // nivelVIP
-                Double.parseDouble(p[6].trim()),    // limiteApuestaEspecial
-                Double.parseDouble(p[7].trim())     // porcentajeBonus
-            );
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Error al parsear JugadorVIP desde CSV: " + e.getMessage());
-        }
+            if (p.length < 8) throw new IllegalArgumentException("Línea CSV inválida: " + linea);
+            return new JugadorVIP(p[0], p[1], Integer.parseInt(p[2].trim()),
+                                Double.parseDouble(p[3].trim()), p[4], p[5],
+                                Double.parseDouble(p[6].trim()), Double.parseDouble(p[7].trim()));
+        }catch(NumberFormatException e){return null;}
     }
 }

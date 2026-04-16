@@ -8,8 +8,8 @@ public class Jugador extends Persona implements Apostable {
     private int puntosLealtad;
     private String idJugador;
 
-    public Jugador(String nombre, String apellido, String cedula, int edad, double saldo, String idJugador){
-        super(nombre, apellido, cedula, edad);
+    public Jugador(String nombre, String apellido, int edad, double saldo, String idJugador){
+        super(nombre, apellido, edad);
         if(saldo < 0){
             throw new IllegalArgumentException("El saldo debe ser mayor que 0. No hay saldos negativos");
         }
@@ -68,7 +68,6 @@ public class Jugador extends Persona implements Apostable {
     public String toString(){
         return "Nombre = " + getNombre() +
                "\n Apellido = " + getApellido() +
-               "\n Cédula = " + getCedula() +
                "\n Edad = " + getEdad() +
                "\n Saldo = " + saldo +
                "\n Puntos de Lealtad = " + puntosLealtad +
@@ -85,7 +84,6 @@ public class Jugador extends Persona implements Apostable {
     return new StringBuilder()
         .append(getNombre()).append(",")
         .append(getApellido()).append(",")
-        .append(getCedula()).append(",")
         .append(getEdad()).append(",")
         .append(getSaldo()).append(",")
         .append(getIdJugador())
@@ -95,9 +93,9 @@ public class Jugador extends Persona implements Apostable {
     public static Jugador fromCSV(String linea) {
         try{
             String[] p = linea.split(",");
-            if (p.length < 6) throw new IllegalArgumentException("Línea CSV inválida: " + linea);
-            return new Jugador(p[0], p[1], p[2], Integer.parseInt(p[3].trim()),
-                                Double.parseDouble(p[4].trim()), p[5]);
+            if (p.length < 5) throw new IllegalArgumentException("Línea CSV inválida: " + linea);
+            return new Jugador(p[0], p[1], Integer.parseInt(p[2].trim()),
+                                Double.parseDouble(p[3].trim()), p[4]);
         }catch(NumberFormatException e){return null;}
     }
 

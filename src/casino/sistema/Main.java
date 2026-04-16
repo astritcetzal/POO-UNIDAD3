@@ -57,11 +57,10 @@ public class Main {
                                 System.out.println("Nombre: "); String nomJ = sc.nextLine();
                         System.out.println("Apellido: "); String apeJ = sc.nextLine();
                         System.out.println("Edad: "); int edadJ = sc.nextInt(); sc.nextLine();
-                        System.out.println("Cedula (ej. CED-001): "); String cedJ = sc.nextLine();
                         System.out.println("ID jugador (ej. JUG-001): "); String id = sc.nextLine();
                         System.out.println("Saldo con el que inicia: "); double saldo = sc.nextDouble(); sc.nextLine();
                         
-                        Jugador nuevoJugador = new Jugador(nomJ, apeJ, cedJ, edadJ, saldo, id);
+                        Jugador nuevoJugador = new Jugador(nomJ, apeJ, edadJ, saldo, id);
                         jugadorService.agregarJugador(nuevoJugador);
                         System.out.println("El jugador se registró correctamente!");
                         registroexitoso = true;
@@ -83,11 +82,10 @@ public class Main {
                             System.out.println("Apellido: "); String apeV = sc.nextLine();
                             System.out.println("Edad: "); int edadV = sc.nextInt(); sc.nextLine();
                             System.out.println("Nivel VIP (Bronce, Plata, Oro): "); String nivelVIP = sc.nextLine();
-                            System.out.println("Cedula (ej. CED-001): "); String cedV = sc.nextLine();
                             System.out.println("ID jugador (ej. JUG-VIP1): "); String idV = sc.nextLine();
                             System.out.println("Saldo con el que inicia: "); double saldoV = sc.nextDouble(); sc.nextLine();
                             
-                            JugadorVIP nuevoVIP = new JugadorVIP(nomV, apeV, cedV, edadV, saldoV, idV, nivelVIP, 1000, 10);
+                            JugadorVIP nuevoVIP = new JugadorVIP(nomV, apeV, edadV, saldoV, idV, nivelVIP, 1000.0, 10.0);
                             jugadorService.agregarJugador(nuevoVIP);
                             System.out.println("El jugador VIP se registró correctamente!");
                             registroexitosovip = true;
