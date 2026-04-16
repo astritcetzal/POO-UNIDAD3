@@ -2,25 +2,22 @@ package persona;
 
 public abstract class Persona {
 
-    private String nombre, apellido, cedula;
+    private String nombre, apellido;
     private int edad;
 
-    public Persona(String nombre, String apellido, String cedula, int edad) {
+    public Persona(String nombre, String apellido, int edad) {
         if (nombre == null || nombre.trim().isEmpty()) {
             throw new IllegalArgumentException("Datos como Nombre no puede estar vacío o nulo");
         }
         if (apellido == null || apellido.trim().isEmpty()) {
             throw new IllegalArgumentException("Datos como Apellido no puede estar vacío o nulo");
         }
-        if (cedula == null || cedula.trim().isEmpty()) {
-            throw new IllegalArgumentException("Datos como Cédula no puede estar vacío o nulo");
-        }
+
         if (edad < 18) {
             throw new IllegalArgumentException("Debes ser mayor de edad para entrar a un Casino");
         }
         this.nombre = nombre;
         this.apellido = apellido;
-        this.cedula = cedula;
         this.edad = edad;
 
     }
@@ -47,17 +44,6 @@ public abstract class Persona {
         this.apellido = apellido;
     }
 
-    public String getCedula() {
-        return cedula;
-    }
-
-    public void setCedula(String cedula) {
-        if (cedula == null || cedula.trim().isEmpty()) {
-            throw new IllegalArgumentException("Datos como Cédula no puede estar vacío o nulo");
-        }
-        this.cedula = cedula;
-    }
-
     public int getEdad() {
         return edad;
     }
@@ -71,7 +57,7 @@ public abstract class Persona {
 
     @Override
     public String toString() {
-        return "Persona: nombre = " + nombre + ", apellido: " + apellido + ", cedula: " + cedula + ", edad: " + edad;
+        return "Persona: nombre = " + nombre + ", apellido: " + apellido + ", edad: " + edad;
     }
 
     public abstract String getRol();
