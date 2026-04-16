@@ -6,12 +6,13 @@ public class Empleado extends Persona {
     private String cargo;
     private double salario;
     private JuegoMesa mesaAsignada;
+    private String cedula;
 
     public Empleado(String nombre, String apellido, String cedula, int edad, String cargo, double salario) {
-        super(nombre, apellido, cedula, edad);
-        if (cargo == null || cargo.isEmpty()) {
-            throw new IllegalArgumentException("El empleado debe tener cargo");
-        }
+        super(nombre, apellido, edad);
+        if (cedula == null || cedula.isEmpty())
+        {throw new IllegalArgumentException("Datos como cédula no puede estar vacío o nulo");}
+        if (cargo == null || cargo.isEmpty()) { throw new IllegalArgumentException("El empleado debe tener cargo");}
         if (salario < 0) {
             throw new IllegalArgumentException("El salario no puede ser menor a 0");
         }
@@ -30,9 +31,7 @@ public class Empleado extends Persona {
     public static Empleado fromCSV(String linea){
         String[] partes = linea.split(",");
 
-        if (partes.length!=6){
-            throw new IllegalArgumentException("Linea invalida, se esperan al menos 2 campos: " + linea);
-        }
+        if (partes.length!=6){throw new IllegalArgumentException("Linea invalida, se esperan al menos 2 campos: " + linea);}
    
         try {
             int edadParseada = Integer.parseInt(partes[3]);
@@ -50,6 +49,15 @@ public class Empleado extends Persona {
 
     public void setCargo(String cargo) {
         this.cargo = cargo;
+    }
+    public String getCedula(){
+        return cedula;
+    }
+    public void setCedula(String cedula){
+        if (cedula == null || cedula.isEmpty()){
+            throw new IllegalArgumentException("Datos como cédula no pueden estar vacios o nulo");
+        }
+        this.cedula= cedula;
     }
 
     public double getSalario() {
