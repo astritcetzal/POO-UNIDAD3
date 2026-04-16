@@ -31,7 +31,7 @@ public class Main {
             EmpleadoService empleadoService = new EmpleadoService(new EmpleadoArchivo("empleados.csv"));
             JugadorService jugadorService = new JugadorService(new JugadorArchivo("jugadores.csv"));
 
-            int opcion;
+            int opcion = 0;
             do {
                 System.out.println("\n~~ SISTEMA CASINO: " + casino.getNombre().toUpperCase() + " ~~\n");
                 System.out.println("1. Registrar Jugador");
@@ -45,8 +45,12 @@ public class Main {
                 System.out.println("9. Eliminar empleado"); // Iterator
                 System.out.println("10. Salir y guardar");
                 System.out.print("\nSeleccione una opción: ");
-                opcion = sc.nextInt();
-                sc.nextLine();
+                try {
+                    opcion = Integer.parseInt(sc.nextLine().trim());
+                } catch (NumberFormatException e) {
+                    System.out.println("Opción inválida, ingrese un número.");
+                    continue;
+                }
 
                 switch (opcion) {
                     case 1: // Registrar Jugador
@@ -180,7 +184,7 @@ public class Main {
                             mesaRuleta.jugar();
                             jugadorService.actualizarJugador();
                         } catch (ApuestaMinimaInvalidaException | ApuestaMaximaInvalidaException
-                                | IllegalArgumentException | IOException e) {
+                                | SaldoInsuficienteException | IllegalArgumentException | IOException e) {
                             System.out.println("Algo está fallando en la partida: " + e.getMessage());
                         }
                         break;
