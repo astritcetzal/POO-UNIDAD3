@@ -13,7 +13,7 @@ import exceptions.ApuestaMinimaInvalidaException;
 
 public class Casino {
     private String nombre;
-    private List<JuegoMesa> juegos; // composición
+    private List<JuegoMesa> juegos; 
     private double cajaTotal;
 
     public Casino(String nombre) {
@@ -54,7 +54,7 @@ public class Casino {
     }
 
     public String toString() {
-        return "Casino: " + getNombre() + "- Caja: $" + getCajaTotal();
+        return "Casino: " + getNombre() + " - Caja: $" + getCajaTotal();
     }
 
 }

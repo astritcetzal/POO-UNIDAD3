@@ -29,16 +29,17 @@ public class Empleado extends Persona {
     public static Empleado fromCSV(String linea){
         String[] partes = linea.split(",");
 
-        if (partes.length!=6){throw new IllegalArgumentException("Linea invalida, se esperan al menos 2 campos: " + linea);}
+        if (partes.length!=6){throw new IllegalArgumentException("Linea invalida, se esperan 6 campos: " + linea);}
    
         try {
-            int edadParseada = Integer.parseInt(partes[3]);
-            double salarioedadParseada = Double.parseDouble(partes[5]);
-            return new Empleado(partes[0].trim(), partes[1].trim(), partes[2].trim(), edadParseada, partes[4].trim(), salarioedadParseada);
-        } catch (NumberFormatException e){
-            System.out.println("Error al leer los datos del empleado " + e.getMessage());
-            throw new IllegalArgumentException("Dato numerico invalido");
-        }
+            int edadParseada = Integer.parseInt(partes[3].trim());
+            double salarioParseado= Double.parseDouble(partes[5].trim());
+
+            return new Empleado(partes[0].trim(), partes[1].trim(), partes[2].trim(), edadParseada, partes[4].trim(), salarioParseado);
+
+            } catch (NumberFormatException e){
+                return null;
+            }
     }
 
     public String getCargo() {
@@ -46,6 +47,9 @@ public class Empleado extends Persona {
     }
 
     public void setCargo(String cargo) {
+        if (cargo == null || cargo.isEmpty()){
+            throw new IllegalArgumentException("Datos como el cargo no pueden estar vacios o nulo");
+        }
         this.cargo = cargo;
     }
     public String getCedula(){
@@ -63,11 +67,12 @@ public class Empleado extends Persona {
     }
 
     public void setSalario(double salario) {
+        if (salario<0){
+            throw new IllegalArgumentException("El salario no puede ser menor a 0");
+        }
+
         this.salario = salario;
     }
-
-    
-
 
     @Override
     public String toString() {
