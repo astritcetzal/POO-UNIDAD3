@@ -145,7 +145,7 @@ public class Main {
                             System.out.println("Color (Rojo, Negro, Verde): "); String color = sc.nextLine();
                             mesaRuleta.setApuesta(numero, color, montapuesta);
                             mesaRuleta.jugar();
-                        } catch (ApuestaMinimaInvalidaException | ApuestaMaximaInvalidaException | ApuestaInvalidaRuletaException e){ System.out.println("Algo está fallando en la partida: " + e.getMessage());}
+                        } catch (ApuestaMinimaInvalidaException | ApuestaMaximaInvalidaException e){ System.out.println("Algo está fallando en la partida: " + e.getMessage());}
                         break;
                         
 
