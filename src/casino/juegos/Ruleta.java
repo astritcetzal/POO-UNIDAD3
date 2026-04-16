@@ -69,44 +69,52 @@ public class Ruleta extends JuegoMesa {
     }
 
     @Override
-    public void jugar() throws JuegoInactivoRuletaException, ApuestaInvalidaRuletaException {
-        if (!isActivo() || getJugadorActual() == null) {
-            throw new JuegoInactivoRuletaException(getNombre());
+    public void jugar() {
+        try {
+            if (!isActivo() || getJugadorActual() == null) {
+                throw new JuegoInactivoRuletaException(getNombre());
+            }
+
+            if (!validarApuesta(montoApuesta)) {
+                throw new ApuestaInvalidaRuletaException(getApuestaMinima(), getApuestamaxima());
+            }
+
+            // Empieza el flujo después de validar
+            getJugadorActual().apostar(montoApuesta);
+
+            girarRuleta();
+            System.out.println("══════════════════════════════════════");
+            System.out.println("  Número ganador : " + numeroGanador);
+            System.out.println("  Color ganador  : " + colorGanador);
+            System.out.println("══════════════════════════════════════");
+
+            // Lógica
+            boolean acertoNumero = (numeroElegido == numeroGanador);
+            boolean acertoColor = colorElegido.equalsIgnoreCase(colorGanador);
+
+            if (acertoNumero) {
+                double pago = montoApuesta * PAGO_NUMERO;
+                System.out.println("¡Acertaste el número! Ganaste $" + pago);
+                getJugadorActual().recibirPago(pago);
+            } else if (acertoColor) {
+                double pago = montoApuesta * PAGO_COLOR;
+                System.out.println("¡Acertaste el color! Ganaste $" + pago);
+                getJugadorActual().recibirPago(pago);
+            } else {
+                System.out.println("No acertaste. Perdiste $" + montoApuesta);
+            }
+
+            // Resetear para setApuestas para volver a jugar
+            montoApuesta = 0;
+            numeroElegido = -1;
+            colorElegido = "";
+            terminar();
+
+        } catch (JuegoInactivoRuletaException e) {
+            System.out.println("Error de estado: " + e.getMessage());
+        } catch (ApuestaInvalidaRuletaException e) {
+            System.out.println("Error de apuesta: " + e.getMessage());
         }
-
-        if (!validarApuesta(montoApuesta)) {
-            throw new ApuestaInvalidaRuletaException(getApuestaMinima(), getApuestamaxima());
-        }
-
-        // Empieza el flujo después de validar
-        getJugadorActual().apostar(montoApuesta);
-
-        girarRuleta();
-        System.out.println("══════════════════════════════════════");
-        System.out.println("  Número ganador : " + numeroGanador);
-        System.out.println("  Color ganador  : " + colorGanador);
-        System.out.println("══════════════════════════════════════");
-
-        // Lógica
-        boolean acertoNumero = (numeroElegido == numeroGanador);
-        boolean acertoColor = colorElegido.equalsIgnoreCase(colorGanador);
-
-        if (acertoNumero) {
-            double pago = montoApuesta * PAGO_NUMERO;
-            System.out.println("¡Acertaste el número! Ganaste $" + pago);
-            getJugadorActual().recibirPago(pago);
-        } else if (acertoColor) {
-            double pago = montoApuesta * PAGO_COLOR;
-            System.out.println("¡Acertaste el color! Ganaste $" + pago);
-            getJugadorActual().recibirPago(pago);
-        } else {
-            System.out.println("No acertaste. Perdiste $" + montoApuesta);
-        }
-
-        // Resetear para setApuestas para volver a jugar
-        montoApuesta = 0;
-        numeroElegido = -1;
-        colorElegido = "";
     }
 
     @Override
