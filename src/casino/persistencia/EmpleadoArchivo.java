@@ -31,7 +31,7 @@ public class EmpleadoArchivo implements PersonaRepository {
     @Override
     public List<Empleado> cargar() throws IOException {
         List<Empleado> empleados = new ArrayList<>();
-        File archivo = new File("empleados.csv");
+        File archivo = new File(rutaArchivo);
 
         if (!archivo.exists()) { return empleados; }
 

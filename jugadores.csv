@@ -1,7 +1,6 @@
 Nombre,Apellido,Cedula,Edad,Saldo,idJugador,NivelVIP,LimiteApuestaEspecial,PorcentajeBonus
 venus,semino,19,35.0,JUG-005
-gtsemani,aleman,18,23.0,JUG
 venus,hola,30,9384.0,jdoe
 venus,venven,33,9138.0,bronce
-Carlos,Llanes,18,430.0,JUG-009
+Carlos,Llanes,18,90.0,JUG-009
 Facundo,Albar,26,9500.0,JUG-VIP90
