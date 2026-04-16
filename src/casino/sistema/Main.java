@@ -121,7 +121,7 @@ public class Main {
                                 System.out.println("Por favor, ingresa los datos correctamente otra vez.");
                             } catch (java.util.InputMismatchException e) {
                                 System.out.println("\n ERROR: Debes ingresar un valor numérico válido.");
-                                sc.nextLine(); // Limpiar basura del escáner
+                                sc.nextLine();
                             }
                         }
                         break; 
@@ -160,8 +160,6 @@ public class Main {
                             System.out.println("Algo está fallando en la partida: " + e.getMessage());
                         }
                         break;
-
-                        
 
                     case 7: // Ver jugadores VIP
                         List <Jugador> vips = jugadorService.filtrarVIP();
