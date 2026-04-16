@@ -14,10 +14,13 @@ public class BlackJack extends JuegoMesa {
     private int puntosJugador;
     private int puntosCasa;
     private List<Integer> mazo;
+    private double montoApuesta;
 
-    public BlackJack(String nombre, Jugador jugadorActual, double apuestaMinima, double apuestaMaxima, boolean activo) throws ApuestaMaximaInvalidaException, ApuestaMinimaInvalidaException {
+    public BlackJack(String nombre, Jugador jugadorActual, double apuestaMinima, double apuestaMaxima, boolean activo) 
+            throws ApuestaMaximaInvalidaException, ApuestaMinimaInvalidaException {
         super(nombre, jugadorActual, apuestaMinima, apuestaMaxima, activo);
         this.mazo = new ArrayList<>();
+        this.montoApuesta = 0;
         prepararMazo();
     }
 
@@ -32,61 +35,50 @@ public class BlackJack extends JuegoMesa {
     }
 
     private int sacarCarta() {
-        if (mazo.isEmpty())
-            prepararMazo();
+        if (mazo.isEmpty()) prepararMazo();
         return mazo.remove(0);
+    }
+
+    public void prepararApuesta(double monto) {
+        if (monto < getApuestaMinima() || monto > getApuestamaxima()) {
+            throw new IllegalArgumentException("La apuesta de $" + monto + " está fuera de los límites.");
+        }
+        this.montoApuesta = monto;
     }
 
     @Override
     public void iniciar(Jugador jugador) throws SaldoInsuficienteException {
-        if (jugador == null) {
-            return; 
-        }
+        if (jugador == null) return; 
         
         if (jugador.getSaldo() < getApuestaMinima()) {
             throw new SaldoInsuficienteException(jugador.getSaldo(), getApuestaMinima());
         }
 
-        getJugadorActual();
+        setJugadorActual(jugador);
         this.puntosJugador = 0;
         this.puntosCasa = 0;
-        boolean activo = true;
-        setActivo(activo);
+        setActivo(true);
         prepararMazo();
-        System.out.println("¡Mesa lista! Jugador: " + jugador.getNombre());
-    }
-
-    public void setPuntosJugador(int puntosJugador) {
-        this.puntosJugador = puntosJugador;
-    }
-
-    public void setPuntosCasa(int puntosCasa) {
-        this.puntosCasa = puntosCasa;
-    }
-
-    public void setMazo(List<Integer> mazo) {
-        this.mazo = mazo;
+        
+        System.out.println("══════════════════════════════════════");
+        System.out.println("  Bienvenido al BlackJack, " + jugador.getNombre() + "!");
+        System.out.println("  Apuesta mínima : $" + getApuestaMinima());
+        System.out.println("  Apuesta máxima : $" + getApuestamaxima());
+        System.out.println("  Saldo actual   : $" + jugador.getSaldo());
+        System.out.println("══════════════════════════════════════");
     }
 
     @Override
     public void jugar() {
         try {
-            if (!isActivo()) {
+            if (!isActivo() || getJugadorActual() == null) {
                 throw new JuegoInactivoException(getNombre());
             }
 
-            if (getJugadorActual() == null) {
-                System.out.println("Error: No hay un jugador asignado a la mesa.");
-            }
-
-            double montoSimulado = getApuestaMinima(); 
-            
-            if (!validarApuesta(montoSimulado)) {
-                throw new ApuestaMinimaInvalidaException("La apuesta de " + montoSimulado + " no es válida para esta mesa.");
-            }
+            getJugadorActual().apostar(montoApuesta);
 
             repartirCartas();
-
+            
             while (this.puntosJugador < 17) {
                 this.puntosJugador += sacarCarta();
             }
@@ -96,31 +88,49 @@ public class BlackJack extends JuegoMesa {
                     this.puntosCasa += sacarCarta();
                 }
             }
+            
+            int resultado = calcularPuntos();
+            
+            System.out.println("Apuesta realizada. Monto apostado: $" + montoApuesta);
+
+            if (resultado == 1) { 
+                double premio = montoApuesta * 2;
+                System.out.println("¡GANASTE! Pago recibido de: $" + premio);
+                getJugadorActual().recibirPago(premio);
+            } else if (resultado == 0) { 
+                System.out.println("EMPATE. Se devuelve tu apuesta de: $" + montoApuesta);
+                getJugadorActual().recibirPago(montoApuesta);
+            } else { 
+                System.out.println("La casa gana. Perdiste $" + montoApuesta);
+            }
+
             terminar();
             
-            } catch (JuegoInactivoException e) {
-                System.out.println("Error de estado: " + e.getMessage());
-            
-            } catch (ApuestaMinimaInvalidaException e) {
-                System.out.println("Error de apuesta: " + e.getMessage());
-            
-            } catch (IllegalStateException e) {
-                System.out.println("Error de lógica: " + e.getMessage());
-            }
+        } catch (JuegoInactivoException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
     
     @Override
     public void terminar() {
-        isActivo();
-        int resultado = calcularPuntos();
-        if (resultado == 1) {
-            System.out.println("--- ¡GANASTE! ---");
-        } else if (resultado == 2) {
-            System.out.println("--- GANA LA CASA ---");
-        } else {
-            System.out.println("--- EMPATE ---");
+        if (getJugadorActual() != null) {
+            System.out.println("══════════════════════════════════════");
+            int resultado = calcularPuntos();
+            if (resultado == 1) {
+                System.out.println("  RESULTADO       : ¡GANASTE! 🎉");
+            } else if (resultado == 2) {
+                System.out.println("  RESULTADO       : GANA LA CASA");
+            } else {
+                System.out.println("  RESULTADO       : EMPATE");
+            }
+            System.out.println("  Puntos Jugador  : " + puntosJugador);
+            System.out.println("  Puntos Casa     : " + puntosCasa);
+            System.out.println("  Saldo final     : $" + getJugadorActual().getSaldo());
+            System.out.println("══════════════════════════════════════");
         }
-        System.out.println("Puntos Jugador: " + puntosJugador + " | Puntos Casa: " + puntosCasa);
+        this.montoApuesta = 0; // Resetear apuesta
+        setActivo(false);
+        setJugadorActual(null);
     }
 
     public void repartirCartas() {
@@ -129,21 +139,16 @@ public class BlackJack extends JuegoMesa {
     }
 
     public int calcularPuntos() {
+        // Si el jugador se pasa de 21, pierde siempre (Gana casa = 2)
         if (puntosJugador > 21) return 2;
+        // Si la casa se pasa o el jugador tiene más puntos, gana jugador (1)
         if (puntosCasa > 21 || puntosJugador > puntosCasa) return 1;
-        if (puntosJugador < puntosCasa) return 2;
-        return 0;
+        // Si tienen lo mismo, empate (0)
+        if (puntosJugador == puntosCasa) return 0;
+        // En cualquier otro caso, gana casa (2)
+        return 2;
     }
 
-    public int getPuntosJugador() {
-        return puntosJugador; 
-    }
-    
-    public int getPuntosCasa() {
-        return puntosCasa; 
-    }
-
-    public List<Integer> getMazo(){
-        return mazo; 
-    }
+    public int getPuntosJugador() { return puntosJugador; }
+    public int getPuntosCasa() { return puntosCasa; }
 }
